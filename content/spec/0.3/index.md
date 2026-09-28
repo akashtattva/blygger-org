@@ -1917,6 +1917,53 @@ name and the first surface a count could attach to; the four reader-side
 surfaces above are unbuilt, and this reopens only if they are built and found
 insufficient.
 
+### 16.6e The manifest locates the surface (ruled 2026-09-28; a 0.4 construct)
+
+§4 fixes every filename within the surface. That rule was written for
+filesystem-shaped deployments, and it excludes a large class of publishers
+for a reason unrelated to publishing: managed hosts intercept `.json` and
+`.xml` paths as static files before a CMS routes them, so a WordPress site,
+for one, cannot serve `items/{id}.json` without rewrite rules that shared
+hosting often forbids. **Ruled 2026-09-28, adopting a public proposal
+([blygger-spec#2](https://github.com/blygger/blygger-spec/issues/2)) in a
+reshaped form: the manifest names where the surface lives.** The shape, for
+clients that want to leave room now:
+
+- **`feed` and `items` become authoritative.** Their values are
+  origin-relative or absolute URLs, defaulting to `feed.xml` and
+  `items/index.json` when absent. Readers use the manifest's value.
+- **Two OPTIONAL template keys**, in [RFC 6570](https://www.rfc-editor.org/rfc/rfc6570)
+  level-1 form: `item` (variable `id`, default `items/{id}.json`) and
+  `pin` (variables `id` and `n`, default `items/{id}/v{n}.json`). Readers
+  MUST expand them wherever this document says `{origin}items/{id}.json`
+  or `{origin}items/{id}/v{n}.json`. A blyg that omits them is unchanged.
+- **Discovery.** §12.1 step 2 is unchanged: a bare origin is still probed for
+  `blyg.json`, which stays the fixed filename and the first probe for origins
+  with no HTML. Step 4 is extended: the reader fetches the `rel="blyg"`
+  href, and if the body parses as a manifest, that *is* the manifest;
+  otherwise the href is an origin base and `blyg.json` is appended as
+  today. No new `rel`, no new media type. The feed's `<blyg:manifest>`
+  already names the manifest by absolute URL.
+- **Identity** (§12.2) becomes *the manifest's final URL minus its last path
+  segment* — the existing rule stated without the filename. A publisher
+  whose manifest lives at `/wp-json/blyg/v1/manifest` has the identity origin
+  `/wp-json/blyg/v1/`, every reference to it names that string, and so it
+  must be as stable as any origin.
+- **`page` MAY be absolute** (§5.8), since a CMS permalink lives outside the
+  surface's mount; media URLs already may be (§5.4).
+- **Nothing else moves.** The static-file requirement stands — a template
+  expands to static paths and the defaults are today's paths. Receivers
+  check a mention's target against their own templates (§15.3). Mount
+  independence (§4) is unchanged; this is its completion, not its
+  reversal: the manifest filename is the protocol's, everything else is the
+  deployer's, and the manifest says where.
+
+This is a **0.4** construct by the version boundary rule: a reader that
+ignores the template keys returns 404s on a templated blyg, so what a reader
+must do changes. It enters normative text once one client not written by this
+project publishes through templates and the reference client has subscribed
+to it, transcluded from it and sent it a mention that verified.
+
 ### 16.7 Reserved
 
 - `![[id@vN]]` version-explicit transclusion (§10.1) — reserved, rejected at
@@ -1943,6 +1990,12 @@ One line per published change to this document, newest first. Snapshots are
 cut at `blygger.org/spec/0.3/{date}/` and each carries a diff link to the one
 before it.
 
+- **2026-09-28, fourth revision** — §16.6e: the manifest locates the surface
+  (authoritative `feed`/`items`, `item`/`pin` URI templates, discovery via the
+  existing `rel="blyg"` link, identity as the manifest URL minus its last
+  segment, absolute `page`), a 0.4 construct ruled on a public proposal
+  (blygger-spec#2). §16.7 points at the project backlog. Shape only; no
+  normative change. Not snapshotted.
 - **2026-09-28, third revision** — §16.4: partial quotation ruled as a
   partial transclusion (directive plus attached blockquote, text-quote
   `selector` on the entry, substring-verified, `blyg-partial` class), a 0.3
@@ -1976,4 +2029,4 @@ before it.
 
 ---
 
-*Published from [blygger/blygger-spec@9dfdce0](https://github.com/blygger/blygger-spec/commit/9dfdce0).*
+*Published from [blygger/blygger-spec@c2174f6](https://github.com/blygger/blygger-spec/commit/c2174f6).*
