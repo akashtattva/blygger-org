@@ -1,0 +1,28 @@
+name: A problem with blygger.org
+description: A broken link, a wrong statement, an unreadable page on the site itself.
+labels: ["site"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is for the **website** — the published spec pages, notes, the getting-started
+        page. For the protocol's *content* being wrong, use the
+        [spec repo](https://github.com/blygger/blygger-spec/issues/new/choose).
+
+        Note that `/spec/{version}/` pages are **immutable published snapshots** and are
+        not edited after publication, by design — a citation has to keep resolving to the
+        same text. A defect in a published spec page gets fixed in the next version, or
+        in the renderer if it is a presentation bug.
+  - type: input
+    id: url
+    attributes:
+      label: Which page
+      placeholder: https://blygger.org/start/
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong
+    validations:
+      required: true

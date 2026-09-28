@@ -1,0 +1,13 @@
+blank_issues_enabled: true
+contact_links:
+  - name: A bug in Blygger Studio (the reference client)
+    url: https://github.com/blygger/blygger-studio/issues/new/choose
+    about: Our Cloudflare Worker client — the Worker, studio UI, export, migrations.
+  - name: A problem with the protocol itself
+    url: https://github.com/blygger/blygger-spec/issues/new/choose
+    about: The spec is wrong, silent, or read differently by two clients.
+  - name: Add a live blyg or feed to the directory
+    url: https://blygger.com
+    about: >-
+      Listing a *site* is a different thing from listing a *project* — submit the site
+      at blygger.com, and use the form here for the software.

@@ -85,9 +85,15 @@ on a built deck, is the only thing that catches it.
 
 Static site: Python (`build.py` + `markdown` package) renders `content/*.md`
 through `templates/page.html` into `dist/`, styled by `site.css`. Deployed to
-Cloudflare Pages (project `blygger-org`) via `deploy.sh`. The `/blyg`
-reference-client deployment (separate, `blygger-spec/worker`) is still per the
-deployment plan doc — not built here.
+Cloudflare Pages (project `blygger-org`) via `deploy.sh`. The reference client is
+a separate repo — [`blygger/blygger-studio`](https://github.com/blygger/blygger-studio),
+checked out at `../blygger-studio/`, split out of `blygger-spec/worker/` and renamed
+from `blyg-ref` at session 26 (2026-09-28). Nothing client-side is built here.
+
+**This repo is Track 4** of the program roadmap
+([`blygger-spec/docs/roadmap-tracks.md`](../blygger-spec/docs/roadmap-tracks.md)):
+developer-community management — the published spec, getting started, and the
+ecosystem directory of community-built clients, tools, integrations and mods.
 
 ## Structure
 

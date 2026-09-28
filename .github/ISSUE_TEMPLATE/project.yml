@@ -1,0 +1,85 @@
+name: Submit a project for the ecosystem directory
+description: A client, tool, integration, or mod that speaks Blygger — yours or someone else's.
+title: "[project] "
+labels: ["ecosystem"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        `blygger.org` keeps a directory of community-built Blygger artifacts. Anything
+        that speaks the protocol belongs in it, at any stage — half-finished and
+        undocumented is fine, and "vibecoded, no warranty" is an existing entry's own
+        description.
+
+        **Why we need you to tell us.** Nobody has forked our repos; people read the spec
+        and write their own thing. We can see a *client* once it publishes a live blyg,
+        because the manifest carries a `generator` string — but we cannot see a tool, an
+        integration, or a private mod at all. If you don't tell us, it isn't listed.
+
+        Submitting someone else's project is welcome too. Say so in the notes and we'll
+        check with them before listing it.
+  - type: input
+    id: repo
+    attributes:
+      label: Repository or homepage
+      placeholder: https://github.com/you/your-blyg-thing
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: What kind of thing is it
+      description: >-
+        The distinction that matters: does it *produce* a blyg (and therefore put its own
+        name in a manifest's `generator` key), or does it *author into* one that already
+        exists?
+      options:
+        - "Client — publishes a blyg of its own"
+        - "Tool — authors into an existing blyg (editor, phone action, bot)"
+        - "Integration — teaches an existing publishing system to emit a blyg (Hugo, Obsidian, a static generator)"
+        - "Mod — a modified copy of Blygger Studio"
+        - "Reader, viewer, or aggregator"
+        - "Library, or something else"
+    validations:
+      required: true
+  - type: input
+    id: generator
+    attributes:
+      label: Its `generator` string, if it publishes
+      description: >-
+        The value it writes into `blyg.json`. Please make it distinctive — a fork that
+        keeps reporting `blygger-studio/0.4.0` makes the ecosystem census wrong for
+        everyone, and that census is what drives update notices.
+      placeholder: your-thing/0.1.0
+    validations:
+      required: false
+  - type: input
+    id: live
+    attributes:
+      label: A live blyg it produced, if there is one
+      placeholder: https://example.com/blyg/
+    validations:
+      required: false
+  - type: input
+    id: protocol
+    attributes:
+      label: Which protocol version it implements
+      placeholder: "0.3"
+    validations:
+      required: false
+  - type: textarea
+    id: summary
+    attributes:
+      label: One or two sentences on what it does
+      description: >-
+        If you leave this blank we will generate a summary from your README and mark it as
+        generated. Your own words are better, so this field exists.
+    validations:
+      required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: Status, caveats, whether you want feedback, whether this is someone else's project.
+    validations:
+      required: false
