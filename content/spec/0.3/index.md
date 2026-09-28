@@ -1972,4 +1972,4 @@ before it.
 
 ---
 
-*Published from [blygger/blygger-spec@7fc1e9c](https://github.com/blygger/blygger-spec/commit/7fc1e9c).*
+*Published from [blygger/blygger-spec@bb2602b](https://github.com/blygger/blygger-spec/commit/bb2602b).*
