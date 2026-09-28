@@ -55,6 +55,52 @@ DIRECTORY = "https://blygger.com"
 USER_AGENT = "blygger-org-ecosystem/0.1.0 (+https://blygger.org)"
 TIMEOUT = 20
 
+# The client's current version is READ, never hand-kept. `projects.toml` carried
+# it as a literal until 2026-09-28 and it drifted three releases behind: the page
+# told five live nodes to upgrade to 0.4.0 while 0.7.0 was tagged. A known-latest
+# that has to be remembered on every release is a known-latest that will be
+# wrong, and wrong here is worse than absent — it is public advice to install an
+# old build.
+STUDIO_PKG = ROOT.parent / "blygger-studio" / "package.json"
+
+
+def studio_generator() -> str | None:
+    """`blygger-studio/<version>` from the sibling checkout's package.json."""
+    try:
+        version = json.loads(STUDIO_PKG.read_text("utf-8"))["version"]
+    except (OSError, ValueError, KeyError):
+        return None
+    return f"blygger-studio/{version}"
+
+
+def studio_released_generators() -> list[str]:
+    """Every version this client has ever released, from its own git tags.
+
+    Aliases matter for exactly the population the alert is for — nodes still on
+    an old build — so a hand-kept list is the wrong shape for the same reason a
+    hand-kept latest is: the entries you forget are the ones you needed.
+    """
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(STUDIO_PKG.parent), "tag", "--list", "v*"],
+            capture_output=True, text=True, timeout=10, check=True,
+        ).stdout
+    except (OSError, subprocess.SubprocessError):
+        return []
+    return [f"blygger-studio/{t.strip().lstrip('v')}" for t in out.splitlines() if t.strip()]
+
+
+def current_generator(p: dict) -> str | None:
+    """The version this project's operators should be on.
+
+    Derived from the repo for our own client; the `projects.toml` literal is the
+    fallback and is only authoritative for projects we do not build.
+    """
+    if p.get("ours") and p.get("repo") == "blygger/blygger-studio":
+        return studio_generator() or p.get("generator")
+    return p.get("generator")
+
+
 def gen_keys(p: dict) -> list[str]:
     """Every `generator` string a project answers to, current and historical.
 
@@ -69,7 +115,11 @@ def gen_keys(p: dict) -> list[str]:
     if p.get("generator"):
         keys.append(p["generator"])
     keys.extend(p.get("generator_aliases") or [])
-    return keys
+    # Our own client answers to every version it has ever shipped, derived rather
+    # than listed. Dedup preserves order: current first, history after.
+    if p.get("ours") and p.get("repo") == "blygger/blygger-studio":
+        keys.extend(studio_released_generators())
+    return list(dict.fromkeys(keys))
 
 
 def display_name(p: dict) -> str:
@@ -390,13 +440,14 @@ def render(projects: list[dict], cen: dict, discovered: list[dict], generated_at
                 A("")
             nodes = [n for g in gen_keys(p) for n in (cen.get(g, {}).get("nodes") or [])]
             nodes.sort(key=lambda n: n["origin"])
-            if nodes and p.get("generator"):
+            current = current_generator(p)
+            if nodes and current:
                 behind = [n for n in nodes if n.get("generator_seen")
-                          and n["generator_seen"] != p["generator"]]
+                          and n["generator_seen"] != current]
                 if behind:
                     A(f"**{len(behind)} of {len(nodes)} live nodes run an older build** "
                       + ", ".join(sorted({f'`{n["generator_seen"]}`' for n in behind}))
-                      + f" rather than `{p['generator']}`.")
+                      + f" rather than `{current}`.")
                     A("")
             if nodes:
                 shown = nodes[:4]

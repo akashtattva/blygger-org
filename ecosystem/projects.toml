@@ -33,11 +33,14 @@
 repo = "blygger/blygger-studio"
 name = "Blygger Studio"
 category = "client"
-generator = "blygger-studio/0.4.0"
-# Historical generator strings this client answers to. Live nodes keep reporting
-# the old one until their operator upgrades, which is exactly the population the
-# version alert is for — without these, our own five nodes show up as an
-# unidentified third-party client.
+# Fallback only. The live value is READ from ../blygger-studio/package.json by
+# sync_ecosystem.py, because this literal drifted three releases behind between
+# 2026-09-28's 0.4.0 and 0.7.0 — the page spent that time telling five live
+# nodes to upgrade to a build older than the one they were already running.
+generator = "blygger-studio/0.7.0"
+# Pre-rename strings only. Every `blygger-studio/*` version is derived from that
+# repo's own git tags, for the same reason: the alias you forget to add is the
+# one belonging to the node you most wanted to reach.
 generator_aliases = ["blyg-ref/0.3.0", "blyg-ref/0.2.0", "blyg-ref/0.1.0"]
 live = "https://venkateshrao.com/blyg/"
 ours = true
