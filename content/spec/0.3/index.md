@@ -1924,6 +1924,10 @@ insufficient.
 - Plain (non-structural) mentions — MAY, held apart (§15.6).
 - Encrypted/permissioned content — L3.
 
+Ideas that are neither ruled nor scheduled — including proposals received on
+the public repository — are tracked, non-normatively, in `blygger-spec`'s
+`docs/backlog.md`, with what would schedule each.
+
 ### 16.8 What will never appear
 
 Reply primitives (this is a network of soapboxes, not a conversation
@@ -1972,4 +1976,4 @@ before it.
 
 ---
 
-*Published from [blygger/blygger-spec@bb2602b](https://github.com/blygger/blygger-spec/commit/bb2602b).*
+*Published from [blygger/blygger-spec@9dfdce0](https://github.com/blygger/blygger-spec/commit/9dfdce0).*
