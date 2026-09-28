@@ -66,8 +66,11 @@ If you build one, **[tell us](https://github.com/blygger/blygger-org/issues/new/
 and it gets listed. Nobody has forked our repos — people read the spec and write
 their own — which means we cannot see your work unless you say so.
 
-- **[The spec](/spec/0.2/)** — standalone and complete. A `/spec/{version}/` URL
+- **[The spec](/spec/0.3/)** — standalone and complete. A `/spec/{version}/` URL
   hands you one whole document; you never chase deltas through a changelog.
+  Implement against the living text at [blygger.org/spec/](/spec/), **pin to a
+  dated snapshot** when you need it to hold still, and never build from the plan
+  documents or the reference client's source — they are not the spec.
 - **[Technical notes](/notes/)** — non-normative records of *why*, especially of
   designs that were rejected.
 - **[The CSS contract](https://github.com/blygger/blygger-spec/blob/main/docs/css-contract.md)**

@@ -38,16 +38,20 @@ CONTENT_NOTES = ROOT / "content" / "notes"
 # immutability outranks supersession.
 SPEC_VERSIONS = {
     "0.1": ("SUPERSEDED", "0.2"),
-    "0.2": "DRAFT",
+    "0.2": ("SUPERSEDED", "0.3"),
+    "0.3": "DRAFT",
 }
 CANONICAL_FILES = {
     "0.1": SPEC_REPO / "docs" / "protocol-v0.1.md",
     "0.2": SPEC_REPO / "docs" / "protocol-v0.2.md",
+    "0.3": SPEC_REPO / "docs" / "protocol-v0.3.md",
 }
 
 SITE_ORIGIN = "https://blygger.org"
 GITHUB_REPO = "blygger/blygger-spec"
 GITHUB_URL = f"https://github.com/{GITHUB_REPO}"
+STUDIO_REPO = "blygger/blygger-studio"
+STUDIO_URL = f"https://github.com/{STUDIO_REPO}"
 
 MARKER_BEGIN = "<!-- spec-links:begin -->"
 MARKER_END = "<!-- spec-links:end -->"
@@ -311,17 +315,16 @@ def build_spec_index() -> None:
     lines.append("")
     lines.append("## Reference implementation")
     lines.append("")
-    try:
-        ref_tags = run("git", "tag", "-l", "ref-v*", cwd=SPEC_REPO).splitlines()
-    except subprocess.CalledProcessError:
-        ref_tags = []
-    if ref_tags:
-        lines.append(f"Tagged releases: [{GITHUB_REPO}/releases]({GITHUB_URL}/releases/latest)")
-    else:
-        lines.append(
-            "No reference-implementation release has been tagged yet "
-            f"(will link to [{GITHUB_REPO}/releases]({GITHUB_URL}/releases) once `ref-v0.1.0` is cut)."
-        )
+    # The client has its own repo since 2026-09-28 (blygger-spec session 26) and
+    # its own tagged releases since 0.4.1; the `ref-v*` tags this used to look
+    # for in blygger-spec were never cut. Client versions are not protocol
+    # versions — the client's CHANGELOG names the protocol version it implements.
+    lines.append(
+        f"[blygger/blygger-studio]({STUDIO_URL}) — tagged releases at "
+        f"[{STUDIO_REPO}/releases]({STUDIO_URL}/releases). The client's version is not "
+        "the protocol's; each release names the protocol version it implements. The "
+        "client's source is not the specification."
+    )
 
     CONTENT_SPEC.mkdir(parents=True, exist_ok=True)
     out_path = CONTENT_SPEC / "index.md"
