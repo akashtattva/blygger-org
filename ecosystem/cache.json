@@ -1,0 +1,252 @@
+{
+ "checked": "2026-09-28T17:27:21+00:00",
+ "census": {
+  "goddinpotty-blyg/0.1": {
+   "generator": "goddinpotty-blyg/0.1",
+   "nodes": [
+    {
+     "origin": "https://ammdi.hyperphor.com/blyg/",
+     "title": "AMMDI",
+     "protocol": "0.2",
+     "updated": "2026-09-28T04:49:25Z",
+     "generator_seen": "goddinpotty-blyg/0.1"
+    }
+   ],
+   "protocols": [
+    "0.2"
+   ]
+  },
+  "blyg-ref/0.3.0": {
+   "generator": "blyg-ref/0.3.0",
+   "nodes": [
+    {
+     "origin": "https://blyg.aneeshsathe.com/",
+     "title": "Aneesh's Blyg",
+     "protocol": "0.3",
+     "updated": "2026-09-28T05:00:53Z",
+     "generator_seen": "blyg-ref/0.3.0"
+    },
+    {
+     "origin": "https://blyg.bricolage.io/",
+     "title": "blyg",
+     "protocol": "0.3",
+     "updated": "2026-09-28T15:27:54Z",
+     "generator_seen": "blyg-ref/0.3.0"
+    },
+    {
+     "origin": "https://blyg.protocol-institute.org/",
+     "title": "Protocol Institute Blyg",
+     "protocol": "0.3",
+     "updated": "2026-09-28T14:58:23Z",
+     "generator_seen": "blyg-ref/0.3.0"
+    },
+    {
+     "origin": "https://jd-blyg.exe.xyz/",
+     "title": "[jdbb] studio blyg",
+     "protocol": "0.3",
+     "updated": "2026-09-28T01:04:21Z",
+     "generator_seen": "blyg-ref/0.3.0"
+    },
+    {
+     "origin": "https://venkateshrao.com/blyg/",
+     "title": "Venkatesh Rao's Blyg",
+     "protocol": "0.3",
+     "updated": "2026-09-28T15:17:38Z",
+     "generator_seen": "blyg-ref/0.3.0"
+    }
+   ],
+   "protocols": [
+    "0.3"
+   ]
+  },
+  "sachin-blyg/0.1.0": {
+   "generator": "sachin-blyg/0.1.0",
+   "nodes": [
+    {
+     "origin": "https://blyg.sachinbenny.xyz/",
+     "title": "Sachin Benny",
+     "protocol": "0.3",
+     "updated": "2026-09-28T17:20:49Z",
+     "generator_seen": "sachin-blyg/0.1.0"
+    }
+   ],
+   "protocols": [
+    "0.3"
+   ]
+  },
+  "Blynger/0.8.2": {
+   "generator": "Blynger/0.8.2",
+   "nodes": [
+    {
+     "origin": "https://bradydale.com/blyg/",
+     "title": "Brady Dale's blyg",
+     "protocol": "0.3",
+     "updated": "2026-09-28T16:34:24Z",
+     "generator_seen": "Blynger/0.8.2"
+    }
+   ],
+   "protocols": [
+    "0.3"
+   ]
+  },
+  "caseyjr-blyg/0.1.0": {
+   "generator": "caseyjr-blyg/0.1.0",
+   "nodes": [
+    {
+     "origin": "https://caseyjr.org/blyg/",
+     "title": "Mike Casey",
+     "protocol": "0.2",
+     "updated": "2026-09-28T10:17:15Z",
+     "generator_seen": "caseyjr-blyg/0.1.0"
+    }
+   ],
+   "protocols": [
+    "0.2"
+   ]
+  },
+  "blyg-publisher/0.0.1": {
+   "generator": "blyg-publisher/0.0.1",
+   "nodes": [
+    {
+     "origin": "https://lightsong.ink/blyg/",
+     "title": "Lightsong",
+     "protocol": "0.2",
+     "updated": "2026-09-27T20:26:24Z",
+     "generator_seen": "blyg-publisher/0.0.1"
+    }
+   ],
+   "protocols": [
+    "0.2"
+   ]
+  },
+  "thinking.drwip.com": {
+   "generator": "thinking.drwip.com",
+   "nodes": [
+    {
+     "origin": "https://thinking.drwip.com/blyg/",
+     "title": "Dr Wip \u00b7 Landscape of Thought",
+     "protocol": "0.2",
+     "updated": "2026-08-31T07:29:30Z",
+     "generator_seen": "thinking.drwip.com"
+    }
+   ],
+   "protocols": [
+    "0.2"
+   ]
+  }
+ },
+ "repos": {
+  "blygger/blygger-studio": {
+   "repo": "blygger/blygger-studio",
+   "description": "Blygger Studio \u2014 the reference client for the Blygger protocol. Publish, subscribe, thread, transclude, respond. Cloudflare Worker + D1 + R2.",
+   "language": "TypeScript",
+   "license": "NOASSERTION",
+   "stars": 0,
+   "forks": 0,
+   "pushed_at": "2026-09-28T17:07:50Z",
+   "created_at": "2026-09-28T17:02:41Z",
+   "archived": false,
+   "homepage": "https://blygger.org",
+   "topics": [
+    "blygger",
+    "cloudflare-workers",
+    "indieweb",
+    "rss"
+   ],
+   "default_branch": "main"
+  },
+  "brndnpink/blyg-publisher": {
+   "repo": "brndnpink/blyg-publisher",
+   "description": "Obsidian plugin that publishes a Blygger blyg from one folder of your vault to a static host. Local-first. Includes an AI-agent setup runbook (AGENTS.md).",
+   "language": "TypeScript",
+   "license": "MIT",
+   "stars": 0,
+   "forks": 0,
+   "pushed_at": "2026-09-27T22:20:22Z",
+   "created_at": "2026-09-27T22:05:23Z",
+   "archived": false,
+   "homepage": null,
+   "topics": [
+    "blygger",
+    "obsidian",
+    "obsidian-plugin",
+    "rss",
+    "static-site"
+   ],
+   "default_branch": "main"
+  },
+  "chrisbodhi/hugo-blyg": {
+   "repo": "chrisbodhi/hugo-blyg",
+   "description": "build a Blygger feed with Hugo",
+   "language": "Python",
+   "license": null,
+   "stars": 0,
+   "forks": 0,
+   "pushed_at": "2026-09-28T17:22:47Z",
+   "created_at": "2026-09-27T16:28:39Z",
+   "archived": false,
+   "homepage": null,
+   "topics": [
+    "blygger",
+    "hugo"
+   ],
+   "default_branch": "main"
+  },
+  "aneeshsathe/blygger-desktop": {
+   "repo": "aneeshsathe/blygger-desktop",
+   "description": "A native, Notational-Velocity-fast macOS studio for Blygger blogs (blygs). Rust + GPUI. Vibecoded, no warranty.",
+   "language": "Rust",
+   "license": "MIT",
+   "stars": 1,
+   "forks": 1,
+   "pushed_at": "2026-09-28T02:04:25Z",
+   "created_at": "2026-09-25T15:44:30Z",
+   "archived": false,
+   "homepage": "https://blygger.org",
+   "topics": [],
+   "default_branch": "main"
+  },
+  "miguelito4/drafts-blyg": {
+   "repo": "miguelito4/drafts-blyg",
+   "description": "One-tap Blygger fragments from your phone via Drafts",
+   "language": "JavaScript",
+   "license": "MIT",
+   "stars": 0,
+   "forks": 0,
+   "pushed_at": "2026-09-28T01:14:35Z",
+   "created_at": "2026-09-28T01:05:16Z",
+   "archived": false,
+   "homepage": null,
+   "topics": [
+    "blygger",
+    "drafts-app"
+   ],
+   "default_branch": "main"
+  },
+  "patwater/pioneering-spirit-blyg": {
+   "repo": "patwater/pioneering-spirit-blyg",
+   "description": null,
+   "language": "Rust",
+   "license": null,
+   "stars": 0,
+   "forks": 0,
+   "pushed_at": "2026-09-27T14:26:43Z",
+   "created_at": "2026-09-25T22:53:42Z",
+   "archived": false,
+   "homepage": null,
+   "topics": [],
+   "default_branch": "main"
+  }
+ },
+ "summaries": {},
+ "discovered": [
+  {
+   "repo": "chrisbodhi/newschematic",
+   "via": "code: blyg.json"
+  },
+  {
+   "repo": "protocolvision/sig-p4b",
+   "via": "name/desc/readme"
+  }
+ ]
+}

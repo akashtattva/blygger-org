@@ -1,0 +1,122 @@
+# The curated ecosystem list. HAND-EDITED — this is the source of truth for
+# what appears at blygger.org/ecosystem/.
+#
+# Listing is an editorial act, exactly as it is at blygger.com: sync_ecosystem.py
+# enriches and checks these entries, and reports repos it discovered that are not
+# here, but it never adds one by itself.
+#
+# Fields
+#   repo      "owner/name" on GitHub. Optional — several clients have no located
+#             repo and are listed from their manifest alone.
+#   url       Homepage, if there is no repo or the homepage is the better link.
+#   category  client | tool | integration | mod | reader | library
+#               client       publishes a blyg of its own; has a `generator`
+#               tool         authors into an existing blyg
+#               integration  teaches an existing publishing system to emit a blyg
+#               mod          a modified copy of blygger-studio
+#   name      Human name. Defaults to the repo's last path segment, else the
+#             generator with its version stripped.
+#   generator The exact `generator` string it writes into blyg.json, if it publishes.
+#             This is the join key against the live census.
+#   generator_aliases
+#             Historical generator strings. REQUIRED after any rename or version
+#             bump, or the project's own live nodes read as an unidentified client.
+#   live      A blyg it produced, if one is public.
+#   summary   Our own one-liner. When absent, the page falls back to the repo's
+#             GitHub description, and then to a generated summary (marked as such).
+#   ours      true for the three artifacts we maintain.
+#   submitted Who told us, and when. "census" means we found it in a manifest.
+
+# ─── Ours ──────────────────────────────────────────────────────────────────────
+
+[[project]]
+repo = "blygger/blygger-studio"
+name = "Blygger Studio"
+category = "client"
+generator = "blygger-studio/0.4.0"
+# Historical generator strings this client answers to. Live nodes keep reporting
+# the old one until their operator upgrades, which is exactly the population the
+# version alert is for — without these, our own five nodes show up as an
+# unidentified third-party client.
+generator_aliases = ["blyg-ref/0.3.0", "blyg-ref/0.2.0", "blyg-ref/0.1.0"]
+live = "https://venkateshrao.com/blyg/"
+ours = true
+summary = "The reference client. A Cloudflare Worker that publishes a blyg, subscribes to others, and threads, transcludes and responds across them. Named blyg-ref until 2026-09-28."
+
+# ─── Clients — publish a blyg of their own ─────────────────────────────────────
+
+[[project]]
+name = "Blynger"
+category = "client"
+generator = "Blynger/0.8.2"
+live = "https://bradydale.com/blyg/"
+url = "https://bradydale.com/blyg/"
+submitted = "census 2026-09-28"
+summary = "An independent client on its own version line, already at 0.8.2. Publishes protocol 0.3. Source not located — if this is yours, tell us where it lives."
+
+[[project]]
+name = "sachin-blyg"
+category = "client"
+generator = "sachin-blyg/0.1.0"
+live = "https://blyg.sachinbenny.xyz/"
+submitted = "census 2026-09-28"
+summary = "An independent client publishing protocol 0.3. Source not located."
+
+[[project]]
+name = "caseyjr-blyg"
+category = "client"
+generator = "caseyjr-blyg/0.1.0"
+live = "https://caseyjr.org/blyg/"
+submitted = "census 2026-09-28"
+summary = "An independent client publishing protocol 0.2. Source not located."
+
+[[project]]
+name = "thinking.drwip.com's client"
+category = "client"
+generator = "thinking.drwip.com"
+live = "https://thinking.drwip.com/blyg/"
+submitted = "census 2026-09-28"
+summary = "The first independent implementation, and the first blyg on a path mount rather than a subdomain — its manifest predates the September 2026 talk. Publishes protocol 0.2. Source not located."
+
+# ─── Integrations — teach an existing system to emit a blyg ────────────────────
+
+[[project]]
+repo = "brndnpink/blyg-publisher"
+category = "integration"
+generator = "blyg-publisher/0.0.1"
+live = "https://lightsong.ink/blyg/"
+submitted = "Venkat 2026-09-28"
+
+[[project]]
+repo = "chrisbodhi/hugo-blyg"
+category = "integration"
+submitted = "Venkat 2026-09-28"
+
+[[project]]
+name = "goddinpotty-blyg"
+category = "integration"
+generator = "goddinpotty-blyg/0.1"
+live = "https://ammdi.hyperphor.com/blyg/"
+url = "https://github.com/mtravers/goddinpotty"
+submitted = "census 2026-09-28"
+summary = "A Roam-to-static publisher taught to emit a blyg. Publishes protocol 0.2. The repo link is goddinpotty itself; we have not located the blyg-emitting fork."
+
+# ─── Tools — author into a blyg that already exists ────────────────────────────
+
+[[project]]
+repo = "aneeshsathe/blygger-desktop"
+category = "tool"
+submitted = "Venkat 2026-09-28"
+
+[[project]]
+repo = "miguelito4/drafts-blyg"
+category = "tool"
+submitted = "Venkat 2026-09-28"
+
+# ─── Unclassified — found by search, not yet checked with the author ───────────
+
+[[project]]
+repo = "patwater/pioneering-spirit-blyg"
+category = "library"
+submitted = "search 2026-09-28"
+summary = "Found by GitHub search; purpose not yet confirmed with its author, and no live blyg located. Listed so it is not lost."

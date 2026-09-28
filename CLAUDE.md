@@ -110,6 +110,23 @@ ecosystem directory of community-built clients, tools, integrations and mods.
   the canonical spec from the sibling `../blygger-spec/docs/protocol-v0.1.md`
   checkout; also (re)generates `content/spec/index.md`, the version/snapshot
   table. Design doc: `blygger-spec/docs/spec-publishing-plan.md`.
+- `sync_ecosystem.py` (session 26) — the only writer of `content/ecosystem/`, the
+  community-projects directory. Curated input is `ecosystem/projects.toml`
+  (hand-edited, authoritative for what is listed); the script enriches each entry
+  from GitHub, joins it against a **live census** of every blyg listed at
+  blygger.com, and reports repos it found that are not curated. It never adds a
+  listing by itself.
+  **Why the census is primary:** a client's `generator` string is in a file the
+  protocol requires to be public, so publishing announces a client whether or not
+  its source is anywhere visible — 5 of the 7 clients in the wild have no locatable
+  repo. GitHub search is a supplement, and **fork-following is worthless here**: our
+  repos have zero forks, because people read the spec and write their own.
+  **`generator_aliases` is load-bearing.** A renamed or bumped client keeps being
+  reported by its old string until each operator upgrades, so without aliases a
+  project's own nodes read as an unidentified third-party client — which is exactly
+  what happened to all five of ours the moment `blyg-ref` became `blygger-studio`.
+  The same join is what prints "N of M live nodes run an older build", which is the
+  version-alert signal (roadmap-tracks Track 3.1).
 - `build.py` — renders `content/` → `dist/` (gitignored); walks `content/spec/`
   recursively so it picks up the index page, each version's latest revision,
   and any dated snapshots without needing per-page edits. `deploy.sh`
