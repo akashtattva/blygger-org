@@ -1744,21 +1744,60 @@ project's build-then-prose rule is inverted on purpose — the wire had to be
 able to say this before any client could build it — and it enters normative
 text only after a client has built it and two nodes have exercised it.
 
-### 16.4 Partial quotation (open, 0.4) and titles (closed)
+### 16.4 Partial quotation (ruled 2026-09-28; next revision) and titles (closed)
 
-- **Partial quotation** — quoting a span rather than a whole item — needs a
-  selector on the wire. It is a 0.4 construct if a concrete authoring need
-  is on the table, and it is not yet designed. What is already clear: a
-  whole-item transclusion's faithfulness is verifiable only while the origin
-  still serves the named version, live or pinned, and a partial quote has
-  exactly the same condition plus a substring test, so the new problem is
-  not verification but misrepresentation by elision, which no protocol
-  fixes. If designed, the direction is a text-quote selector (exact text
-  with short prefix and suffix, in the W3C Web Annotation shape) on the
-  transclusion entry, the extract baked in the blockquote under a marker
-  class, and verification as substring-of-`content_md` at the named version.
-  Character ranges are rejected in advance: brittle across markdown and
-  rendering.
+**Partial quotation — ruled: a partial *transclusion*, same construct as §10
+with a selector, entering the normative text once a client builds it and two
+nodes have exercised it.** The medium has three registers of borrowing:
+quote a passage as the inspiration, transclude the whole item for
+commentary (the stub, §10.6), fork from a pin for a derivative (§5.6). The
+first is the common blogging norm and was the missing rung. Its ruled shape:
+
+- **Grammar.** A transclusion directive immediately followed, with no blank
+  line, by a markdown blockquote is a partial transclusion; the blockquote's
+  text is the **selection**. A blank line detaches the blockquote, so a
+  whole transclusion followed by the author's own quotation stays writable.
+
+  ```
+  ![[7c9wk2mhq0v3xj8tn5rzfd41bg]]
+  > Stigmergy is what a protocol looks like from inside, and the
+  > reason it looks like nothing at all is the point.
+
+  Commentary begins after a blank line.
+  ```
+
+- **Faithfulness.** At publish the selection MUST be a substring of the
+  target snapshot's *text content* — its `content_html` with tags stripped,
+  whitespace collapsed within a block, block boundaries kept as line breaks
+  — at the version being baked; otherwise a publish error, as for an
+  unresolvable directive. Any reader MAY re-check by the same test while the
+  origin serves that version, live or pinned. This is exactly the whole
+  form's condition plus a substring test. Misrepresentation by elision is
+  not fixed by this and is not claimed to be; the second class below is
+  what discloses that a quote is partial.
+- **Wire.** The `transclusions[]` entry (§10.3) gains an OPTIONAL
+  `selector`: `exact` REQUIRED (the selection), `prefix` and `suffix`
+  OPTIONAL and short — the W3C Web Annotation text-quote shape. Mention
+  verification (§15.4) ignores it, as it ignores `cited`; a reader that
+  ignores it entirely remains conformant. The relation is `transclusion`;
+  staleness is §5.9's check, unchanged.
+- **Bake.** The blockquote carries `class="blyg-transclusion blyg-partial"`
+  with the usual data attributes; `blyg-partial` becomes a permanent wire
+  token when this enters normative text. Whether the bake carries the
+  passage's inline formatting from the source HTML or its plain text in
+  paragraphs is an implementation finding for the build to settle.
+- **No cap** on a partial quote's length: a substring test does not care,
+  and a cap would be editorial convenience in the protocol.
+- **A revision, not a new version.** Readers never resolve; they display
+  baked HTML. A reader that ignores `selector` displays the passage
+  correctly, runs the same staleness check and receives the same relation,
+  so nothing a reader or receiver does changes, and this enters the 0.3
+  text when built.
+- **Plain-web targets get nothing.** Quoting an ordinary web page under a
+  `{url}` stub is an ordinary markdown blockquote: there is no versioned
+  document to verify against, and a construct there would promise what it
+  cannot check.
+
 - *(Imported generated text was on this list and is resolved: §5.7 rule 7
   discloses it through the existing construct. The authoring grammar for it
   is studio-private.)*
@@ -1900,6 +1939,11 @@ One line per published change to this document, newest first. Snapshots are
 cut at `blygger.org/spec/0.3/{date}/` and each carries a diff link to the one
 before it.
 
+- **2026-09-28, third revision** — §16.4: partial quotation ruled as a
+  partial transclusion (directive plus attached blockquote, text-quote
+  `selector` on the entry, substring-verified, `blyg-partial` class), a 0.3
+  revision once built rather than a 0.4 construct. Shape only; no normative
+  change. Not snapshotted.
 - **2026-09-28, second revision** — §16 updated with the 0.4 rulings of the
   same afternoon: §16.3 remote generation sources ruled in full (a source,
   disclosed as a reference, a fourth mention relation `source`, a 0.4
@@ -1928,4 +1972,4 @@ before it.
 
 ---
 
-*Published from [blygger/blygger-spec@2457bbd](https://github.com/blygger/blygger-spec/commit/2457bbd).*
+*Published from [blygger/blygger-spec@7fc1e9c](https://github.com/blygger/blygger-spec/commit/7fc1e9c).*
