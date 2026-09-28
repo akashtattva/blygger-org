@@ -381,8 +381,9 @@ Threads additionally carry `transclusions` (§10.3) and MAY carry `stub_of`
 - **Items are titleless.** No kind carries a title field, and none is
   reserved. The feed's `<title>` element is derived (§7); a leading markdown
   heading in `content_md` is content, not a title, and readers MUST NOT
-  extract one. (Titles are a possible future wire field — §16 — and would be
-  a design change, not a rendering fix.)
+  extract one. (A title field was considered for 0.4 and closed — §16.4: the
+  derived feed title already begins with a leading heading, and the rest is
+  presentation.)
 
 ### 5.4 Media
 
@@ -492,9 +493,9 @@ Rules:
    span MAY be the whole body.
    At 0.3 a source is always own-origin and carries no `origin` member;
    generation from another origin's items is not expressible on the wire at
-   this version and is deferred (§16), where its shape is already decided:
-   when it arrives, `sources[]` takes the reference shape of §5.9 with
-   `origin` omitted for own-origin sources, exactly as `transclusions[]` does.
+   this version. It is ruled in full for 0.4 (§16.3): `sources[]` takes the
+   reference shape of §5.9 with `origin` omitted for own-origin sources,
+   exactly as `transclusions[]` does, and a remote source notifies its origin.
 2. The array MUST NOT carry instruction text or any other pre-generation
    authoring state — instructions are studio-private, permanently. Disclosure
    covers what was produced and from what, never how it was asked for.
@@ -1080,8 +1081,10 @@ The rule that makes network cycles harmless, applied at every origin:
   check from the reference alone (§5.9). It is *not* stale because a target
   that has not itself republished holds a stale quote of something else: the
   thread baked that target's bytes at that target's version, and those bytes
-  have not changed. Whether a transitive notion of staleness should exist at
-  all is an open question (§16.5); this version defines only the direct one.
+  have not changed. There is no transitive notion of staleness (§16.5): every
+  edge of the quotation graph is owned by the publisher who baked it, and only
+  that publisher can refresh it, so freshness over the whole graph is nothing
+  more than the direct check applied at each origin.
 
 ### 10.5 Feed and presentation
 
@@ -1632,8 +1635,11 @@ receiver's protection, not a nicety (§14).
    new.
 
 The relation set is exactly `stub`, `transclusion`, `fork` — one per wire
-construct that names a target — and nothing else. A plain link is not a
-relation (§10.1).
+construct that names a target — and nothing else at this version. A plain
+link is not a relation (§10.1). A fourth relation, `source`, is ruled for
+0.4 (§16.3) because a generation source is a wire construct that names a
+target; receivers at 0.3 report such a mention as **failed**, which is
+correct for them.
 
 ### 15.5 What a verified mention is, and is not
 
@@ -1696,34 +1702,90 @@ reading view intact, with no import error and no mention sent), and promoted
 into §10.1 in the first published revision, which replaced the sentence
 declaring `[[id]]` undefined. The normative text is there.
 
-### 16.3 Remote generation sources (deferred to 0.4; shape decided)
+### 16.3 Remote generation sources (ruled 2026-09-28; a 0.4 construct)
 
 At 0.3 a `generated[].sources[]` entry is own-origin by construction (§5.7).
-Whether a generator may be fed another origin's words — and whether that is
-disclosed as a *source* or is really a *quotation* — is a 0.4 question,
-decided alongside the rest of the AI layer. Its wire shape is already fixed
-so that clients can leave room: `sources[]` takes the reference shape of
-§5.9, with `origin` omitted for own-origin, exactly as `transclusions[]`
-does. Four constructs, one reference object.
+**Ruled 2026-09-28: a generator MAY be fed another origin's words, and that
+is a *source*, not a quotation, disclosed as a reference — and it notifies.**
+§5.7 rule 3's line between the two authorial acts, verbatim-and-visible
+versus drawn-upon-and-woven, does not move when the words come from another
+origin; a blockquote around non-verbatim prose would be false. Nor may the
+draw be silent: in this protocol notification tracks whether the target's
+words are carried (§10.1 keeps links silent because a link carries none),
+and a generation source carries them, transformed. The ruled shape, which a
+client may build against now:
 
-### 16.4 Partial quotation and titles (deferred to 0.4)
+- `sources[]` takes the reference shape of §5.9 — `origin` omitted for
+  own-origin, present for remote — and MAY carry `cited`. Four constructs,
+  one reference object.
+- A source resolves at generation time by §10.2's order — local published
+  item, else imported item with a current or pin-retained snapshot, else an
+  error — so sources widen from own fragments to any item a directive may
+  name, threads included. What is fed to the generator is the **local
+  snapshot**, never a live fetch: generating follows reading, as quoting
+  does.
+- Disclosure is **direct only**, as §10.3 is for transclusion: a thread fed
+  to a generator is disclosed as that thread; the words it had itself baked
+  are inspectable through it.
+- A remote source is a **remote reference** and SHOULD send a mention
+  (§15.2) whose relation is **`source`** — a fourth relation, added to
+  §15.4's set when this construct enters normative text. Verification reads
+  the reference alone, as for the other three. An agent that draws on many
+  remote items sends many mentions, and that is legitimate: each says that a
+  model at this origin used those words, and the item it points at has
+  content (§10.6's anti-pattern is content-free stubbing, not disclosure).
+- Nothing in `content_html` marks a remote source beyond the existing
+  `blyg-tk-gen` wrapper (§5.7); span-level source mapping remains
+  deliberately unpromised.
+
+This is a **0.4** construct, not a 0.3 revision: a new mention relation
+changes what a receiver must do to be correct. It is also the one place the
+project's build-then-prose rule is inverted on purpose — the wire had to be
+able to say this before any client could build it — and it enters normative
+text only after a client has built it and two nodes have exercised it.
+
+### 16.4 Partial quotation (open, 0.4) and titles (closed)
 
 - **Partial quotation** — quoting a span rather than a whole item — needs a
-  selector on the wire *and* a faithfulness guarantee the whole-item form
-  never needed: how a reader confirms the span is a true extract of the
-  version named. The largest open construct.
+  selector on the wire. It is a 0.4 construct if a concrete authoring need
+  is on the table, and it is not yet designed. What is already clear: a
+  whole-item transclusion's faithfulness is verifiable only while the origin
+  still serves the named version, live or pinned, and a partial quote has
+  exactly the same condition plus a substring test, so the new problem is
+  not verification but misrepresentation by elision, which no protocol
+  fixes. If designed, the direction is a text-quote selector (exact text
+  with short prefix and suffix, in the W3C Web Annotation shape) on the
+  transclusion entry, the extract baked in the blockquote under a marker
+  class, and verification as substring-of-`content_md` at the named version.
+  Character ranges are rejected in advance: brittle across markdown and
+  rendering.
 - *(Imported generated text was on this list and is resolved: §5.7 rule 7
   discloses it through the existing construct. The authoring grammar for it
   is studio-private.)*
-- **Titles.** Items are titleless (§5.3) and `<title>` is derived (§7).
-  Making a leading heading a real title is a wire field and a design change.
+- **Titles — closed 2026-09-28: no title field, at any version.** Items
+  are titleless (§5.3) and `<title>` is derived (§7). The wish behind the
+  question — a leading heading shown as the item's linked title — needs
+  nothing from the wire: the RECOMMENDED derivation's excerpt half already
+  begins with the heading when there is one, and how a client renders its
+  own pages is presentation. §5.3's reader rule stands: readers MUST NOT
+  extract a title from content, because a reader inventing structure the
+  publisher did not assert is the failure that rule exists to prevent.
 
-### 16.5 Transitive staleness (open; may be nothing)
+### 16.5 Transitive staleness (resolved 2026-09-28: there is no such thing)
 
-§10.4 defines staleness as a direct relation and notes that snapshot
-independence makes the transitive case ill-defined. Whether "staleness over
-the DAG" should exist as a concept — and if so, what a client is meant to do
-about it — is open for 0.4. It may resolve to: there is no such thing.
+§10.4 defines staleness as a direct relation. **Ruled: no transitive notion
+exists, and none will be defined.** A thread A that baked B at version *n*
+is stale only when B has a version above *n*. If B's own source C has moved
+and B has not republished, A holds B's unchanged bytes; republishing A
+re-bakes B's current version, which still contains the old C. A can do
+nothing about C — only B can, and B's client sees C's staleness directly, by
+§10.4. Every edge of the quotation graph is therefore owned by the publisher
+who baked it, and freshness over the graph is nothing but the direct check
+applied at each origin. No construct, no wire fact, nothing a client must do
+beyond §5.9's comparison. A client MAY show, as presentation, that an item
+it quotes has itself gone stale on something — the nested `data-blyg-*`
+attributes (§10.2) plus one fetch per layer are enough — but that is a
+reading aid, not staleness of the quoting document.
 
 ### 16.6 The write surface (never normative; companion note planned)
 
@@ -1786,12 +1848,14 @@ notes exactly as it binds authored ones. Enters §5.2 once a client emits it.
   "generated": true }
 ```
 
-*Not opened, recorded as a 0.4 candidate:* feed entries for **pinned** publish
+*Considered and not opened (2026-09-28):* feed entries for **pinned** publish
 events carrying that pinned version's content rather than the latest, which §7
-currently forbids for all entries. Pinned content is public, so it would leak
-nothing, and it would make the duplicate entries a plain RSS reader shows
-truthful to their events; against it, the §7 rule is simple and every reader
-relies on it today.
+forbids for all entries. It would leak nothing, since pinned content is
+public. But blyg readers are unaffected either way — only the item document
+advances state (§13.2) — so the sole beneficiary is a plain RSS reader that
+would see a pinned version's frozen text instead of the latest, nobody has
+asked for that, and the observation that raised it was a reader working as
+designed. Parked on a measured need; not a 0.4 item.
 
 ### 16.6d Discovery through references (ruled; no construct; one 0.4 candidate)
 
@@ -1806,9 +1870,13 @@ any local heuristic, provided nothing derived is published (the no-metrics rule)
 *Forward* discovery — who has responded to an item you did not publish — is
 deliberately not on the wire: verified mentions are studio signals (§15.5), and a
 publisher's public responses list is presentation that readers MUST NOT parse as
-protocol. **Recorded as a 0.4 candidate, not opened:** an OPTIONAL per-item
-curated responses surface in the blogroll's shape — opt-in per item, structurally
-verified sources only, no completeness claim, never re-emitting content.
+protocol. **Considered for 0.4 and kept closed (2026-09-28):** an OPTIONAL
+per-item curated responses surface in the blogroll's shape — opt-in per item,
+structurally verified sources only, no completeness claim, never re-emitting
+content. A machine-readable list of who responded is a follower list by another
+name and the first surface a count could attach to; the four reader-side
+surfaces above are unbuilt, and this reopens only if they are built and found
+insufficient.
 
 ### 16.7 Reserved
 
@@ -1832,6 +1900,14 @@ One line per published change to this document, newest first. Snapshots are
 cut at `blygger.org/spec/0.3/{date}/` and each carries a diff link to the one
 before it.
 
+- **2026-09-28, second revision** — §16 updated with the 0.4 rulings of the
+  same afternoon: §16.3 remote generation sources ruled in full (a source,
+  disclosed as a reference, a fourth mention relation `source`, a 0.4
+  construct); §16.4 titles closed, partial quotation framed; §16.5
+  transitive staleness resolved as nonexistent; the two parked candidates
+  in §16.6c and §16.6d decided against. §5.3, §5.7 rule 1, §10.4 and §15.4
+  cross-references updated. No normative change. Not snapshotted; the
+  morning's snapshot stands.
 - **2026-09-28 (published)** — First published revision; first snapshot cut
   the same day. Promotes `cited` (§16.1 → §5.9), `[[id]]` (§16.2 → §10.1)
   and `generator_url` (§16.6a → §6.1, with §3.2 extended) into normative
@@ -1852,4 +1928,4 @@ before it.
 
 ---
 
-*Published from [blygger/blygger-spec@36e068f](https://github.com/blygger/blygger-spec/commit/36e068f).*
+*Published from [blygger/blygger-spec@2457bbd](https://github.com/blygger/blygger-spec/commit/2457bbd).*
