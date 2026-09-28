@@ -272,6 +272,16 @@ def build_spec_index() -> None:
         "highest-numbered version is the living one, where revisions land; earlier "
         "versions are superseded — frozen, still citable, with their dated snapshots "
         "intact.",
+        "",        "**Which version to implement:** the living one, from this site. **Pin to a "
+        "dated snapshot** when you need the text to hold still — each snapshot below "
+        "links a diff to the one before it. The `docs/` copy on the repository's `main` "
+        "branch is the same text and may run a few days ahead of this page. **The plan "
+        "documents and the reference client's source are not the specification**: "
+        "constructs that have been decided but not yet built are listed in the living "
+        "document's final section, labelled not yet normative, before any client emits "
+        "them. Pre-1.0, every version is a draft and makes no wire promise; a superseded "
+        "version stays conformant and merely lacks the newer constructs, because levels "
+        "are strict supersets.",
         "",
         "| Version | Status | Latest revision |",
         "|---|---|---|",
