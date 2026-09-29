@@ -9,8 +9,8 @@ Built something? **[Submit it](https://github.com/blygger/blygger-org/issues/new
 
 ## Where things stand
 
-- **7 client implementations** publishing **11 live blygs** — 6 of those clients are not ours.
-- Protocol versions in the wild: **0.3** (7 nodes), **0.2** (4 nodes).
+- **9 client implementations** publishing **11 live blygs** — 6 of those clients are not ours.
+- Protocol versions in the wild: **0.3** (8 nodes), **0.2** (3 nodes).
 - **11 projects listed** below.
 
 The client counts come from reading every manifest in [blygger.com's directory](https://blygger.com), which is how a client becomes visible at all: `generator` is a public key in a file the protocol requires, so publishing announces you whether or not your source is anywhere we can see. Five of the clients below have no locatable repository.
@@ -25,11 +25,11 @@ Publish a blyg of their own, and so carry their own `generator` string. A client
 
 The reference client. A Cloudflare Worker that publishes a blyg, subscribes to others, and threads, transcludes and responds across them. Named blyg-ref until 2026-09-28.
 
-`blygger-studio/0.4.0` · TypeScript · updated today
+`blygger-studio/0.7.0` · TypeScript · updated today
 
-**5 of 5 live nodes run an older build** `blyg-ref/0.3.0` rather than `blygger-studio/0.4.0`.
+**3 of 5 live nodes run an older build** `blyg-ref/0.3.0`, `blygger-studio/0.7.0` rather than `blygger-studio/0.8.0`.
 
-Live: [Aneesh's Blyg](https://blyg.aneeshsathe.com/) (protocol 0.3), [blyg](https://blyg.bricolage.io/) (protocol 0.3), [Protocol Institute Blyg](https://blyg.protocol-institute.org/) (protocol 0.3), [\[jdbb\] studio blyg](https://jd-blyg.exe.xyz/) (protocol 0.3), and 1 more
+Live: [And Yet Here We Are](https://blyg.aneeshsathe.com/) (protocol 0.3), [Kyle's blyg](https://blyg.bricolage.io/) (protocol 0.3), [Protocol Institute Blyg](https://blyg.protocol-institute.org/) (protocol 0.3), [\[jdbb\] studio blyg](https://jd-blyg.exe.xyz/) (protocol 0.3), and 1 more
 
 ### [Blynger](https://bradydale.com/blyg/)
 
@@ -37,7 +37,7 @@ An independent client on its own version line, already at 0.8.2. Publishes proto
 
 `Blynger/0.8.2`
 
-Live: [Brady Dale's blyg](https://bradydale.com/blyg/) (protocol 0.3)
+Live: [bradydale.com/blyg](https://bradydale.com/blyg/)
 
 ### [caseyjr-blyg](https://caseyjr.org/blyg/)
 
@@ -45,7 +45,7 @@ An independent client publishing protocol 0.2. Source not located.
 
 `caseyjr-blyg/0.1.0`
 
-Live: [Mike Casey](https://caseyjr.org/blyg/) (protocol 0.2)
+Live: [Mike Casey](https://caseyjr.org/blyg/) (protocol 0.3)
 
 ### [sachin-blyg](https://blyg.sachinbenny.xyz/)
 
@@ -53,7 +53,7 @@ An independent client publishing protocol 0.3. Source not located.
 
 `sachin-blyg/0.1.0`
 
-Live: [Sachin Benny](https://blyg.sachinbenny.xyz/) (protocol 0.3)
+Live: [blyg.sachinbenny.xyz](https://blyg.sachinbenny.xyz/)
 
 ### [thinking.drwip.com's client](https://thinking.drwip.com/blyg/)
 
@@ -72,13 +72,13 @@ Teach an existing publishing system — Hugo, Obsidian, a note-taking tool — t
 
 Obsidian plugin that publishes a Blygger blyg from one folder of your vault to a static host. Local-first. Includes an AI-agent setup runbook (AGENTS.md).
 
-`blyg-publisher/0.0.1` · TypeScript · MIT · updated today
+`blyg-publisher/0.0.1` · TypeScript · MIT · updated yesterday
 
 Live: [Lightsong](https://lightsong.ink/blyg/) (protocol 0.2)
 
 ### [hugo-blyg](https://github.com/chrisbodhi/hugo-blyg)
 
-build a Blygger feed with Hugo
+build a Blygger feed with Hugo & publish with GH Actions
 
 Python · updated today
 
@@ -88,7 +88,7 @@ A Roam-to-static publisher taught to emit a blyg. Publishes protocol 0.2. The re
 
 `goddinpotty-blyg/0.1`
 
-Live: [AMMDI](https://ammdi.hyperphor.com/blyg/) (protocol 0.2)
+Live: [AMMDI Blyg](https://ammdi.hyperphor.com/blyg/) (protocol 0.2)
 
 
 ## Authoring tools
@@ -105,7 +105,7 @@ Rust · MIT · updated today
 
 One-tap Blygger fragments from your phone via Drafts
 
-JavaScript · MIT · updated today
+JavaScript · MIT · updated yesterday
 
 
 ## Libraries and unclassified
@@ -116,15 +116,24 @@ Building blocks, and projects whose shape we have not yet confirmed with their a
 
 Found by GitHub search; purpose not yet confirmed with its author, and no live blyg located. Listed so it is not lost.
 
-Rust · updated yesterday
+Rust · updated today
 
+
+## Publishing, but unidentified
+
+These `generator` strings appear on live blygs and are not matched to any project above. If one is yours, [say so](https://github.com/blygger/blygger-org/issues/new/choose) and it gets a proper entry.
+
+- `Blynger/0.8.3` — [bradydale.com/blyg](https://bradydale.com/blyg/)
+- `sachin-blyg/0.2.0` — [blyg.sachinbenny.xyz](https://blyg.sachinbenny.xyz/)
 
 <!-- Discovered on GitHub and NOT in ecosystem/projects.toml. Triage these,
      then add or deliberately skip each one:
        chrisbodhi/newschematic  (via code: blyg.json)
+       msmsim/msn  (via code: blyg.json)
+       mtravers/goddinpotty  (via code: blyg.json)
        protocolvision/sig-p4b  (via name/desc/readme)
 -->
 
 ---
 
-*Checked 2026-09-28. This page is regenerated, not hand-maintained: repository facts and live-blyg data are re-read on each run, so a stale entry here means the check has not run, not that nothing changed.*
+*Checked 2026-09-29. This page is regenerated, not hand-maintained: repository facts and live-blyg data are re-read on each run, so a stale entry here means the check has not run, not that nothing changed.*
