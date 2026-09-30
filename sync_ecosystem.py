@@ -425,8 +425,23 @@ def render(projects: list[dict], cen: dict, discovered: list[dict], generated_at
                              and p.get("generated_summary") else ""))
                 A("")
             facts = []
-            if p.get("generator"):
-                facts.append(f"`{p['generator']}`")
+            # The version this project's operators should be on — derived from
+            # the repo for our own client, not the `projects.toml` literal.
+            #
+            # Session 28 made the *alert* below derive its "current" version and
+            # left this line on the literal, so the card printed a stale version
+            # directly above a sentence naming a newer one as current:
+            #
+            #   `blygger-studio/0.7.0` · TypeScript · updated today
+            #   **3 of 5 live nodes run an older build** … rather than
+            #   `blygger-studio/0.8.0`.
+            #
+            # Two sources for one fact, one line apart. Read plainly, the card
+            # said 0.7.0 was current and had been updated today. Same source as
+            # the alert now, so they cannot disagree again.
+            card_generator = current_generator(p)
+            if card_generator:
+                facts.append(f"`{card_generator}`")
             if meta.get("language"):
                 facts.append(meta["language"])
             if meta.get("license") and meta["license"] not in ("NOASSERTION", None):

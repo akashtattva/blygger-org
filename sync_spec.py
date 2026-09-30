@@ -112,15 +112,32 @@ def existing_snapshots(version: str) -> list[str]:
     return sorted(dates)
 
 
-def rewrite_links_block(canonical_text: str, this_version_url: str, latest_url: str, previous_url: str | None) -> str:
+def rewrite_links_block(
+    canonical_text: str,
+    this_version_url: str,
+    latest_url: str,
+    previous_url: str | None,
+    living_text_url: str | None = None,
+) -> str:
     """Surgically replace This/Latest/Previous version bullets; pass every other bullet
-    (XML namespace, Source of truth, Reference implementation, License, ...) through verbatim."""
+    (XML namespace, Source of truth, Reference implementation, License, ...) through verbatim.
+
+    `living_text_url` adds the **Living text** bullet: a direct link to the
+    canonical markdown on `main`, which is where revisions land before a publish
+    run copies them here. Venkat asked for the spec link to reach the latest
+    published version "with a pointer to bleeding edge live version in GitHub
+    too" — this is that pointer, and it says outright that the file may be ahead
+    of the page you are reading, which "Source of truth" does not.
+
+    Latest pages only. A dated snapshot is immutable, and pointing one at a
+    moving file would undercut the only promise a snapshot makes.
+    """
     m = re.search(rf"{re.escape(MARKER_BEGIN)}\n(.*?)\n{re.escape(MARKER_END)}", canonical_text, re.DOTALL)
     if not m:
         sys.exit(f"ERROR: {MARKER_BEGIN} / {MARKER_END} markers not found in the canonical spec text")
     block_lines = m.group(1).splitlines()
 
-    managed = {"This version", "Latest version", "Previous version"}
+    managed = {"This version", "Latest version", "Previous version", "Living text"}
     passthrough = []
     for line in block_lines:
         bm = BULLET_RE.match(line)
@@ -134,6 +151,11 @@ def rewrite_links_block(canonical_text: str, this_version_url: str, latest_url: 
     ]
     if previous_url:
         new_lines.append(f"- **Previous version:** `{previous_url}`")
+    if living_text_url:
+        new_lines.append(
+            f"- **Living text:** [`{GITHUB_REPO}`]({living_text_url}) — the editable document on `main`. "
+            "Revisions land there first, so it may be ahead of this page."
+        )
     new_lines.extend(passthrough)
 
     new_block = MARKER_BEGIN + "\n" + "\n".join(new_lines) + "\n" + MARKER_END
@@ -184,6 +206,7 @@ def render_spec_page(
     latest_url: str,
     previous_url: str | None,
     superseded_by: str | None = None,
+    living_text: bool = False,
 ) -> str:
     canonical_path = CANONICAL_FILES[version]
     if not canonical_path.is_file():
@@ -193,7 +216,8 @@ def render_spec_page(
         print(f"WARNING: {SPEC_REPO} has uncommitted changes — publishing from a dirty tree.", file=sys.stderr)
 
     text = canonical_path.read_text("utf-8")
-    text = rewrite_links_block(text, this_version_url, latest_url, previous_url)
+    living_text_url = f"{GITHUB_URL}/blob/main/docs/{canonical_path.name}" if living_text else None
+    text = rewrite_links_block(text, this_version_url, latest_url, previous_url, living_text_url)
     if superseded_by:
         text = insert_after_title(text, superseded_notice(superseded_by))
     sha = spec_repo_sha()
@@ -211,7 +235,7 @@ def sync_latest(version: str) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "index.md"
     out_path.write_text(
-        render_spec_page(version, latest_url, latest_url, previous_url, superseded_by), "utf-8"
+        render_spec_page(version, latest_url, latest_url, previous_url, superseded_by, living_text=True), "utf-8"
     )
     print(f"  wrote {out_path.relative_to(ROOT)}" + (f" (superseded by {superseded_by})" if superseded_by else ""))
 

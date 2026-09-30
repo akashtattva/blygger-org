@@ -26,6 +26,7 @@ this document stops receiving revisions and is marked superseded.
 - **This version:** `https://blygger.org/spec/0.1/`
 - **Latest version:** `https://blygger.org/spec/0.1/`
 - **Previous version:** `https://blygger.org/spec/0.1/2026-08-10/`
+- **Living text:** [`blygger/blygger-spec`](https://github.com/blygger/blygger-spec/blob/main/docs/protocol-v0.1.md) — the editable document on `main`. Revisions land there first, so it may be ahead of this page.
 - **XML namespace:** `https://blygger.org/ns/0.1`
 - **Source of truth:** [`blygger/blygger-spec`](https://github.com/blygger/blygger-spec) — `docs/protocol-v0.1.md`
 - **Reference implementation:** same repository, `worker/`
@@ -589,4 +590,4 @@ addressable authors, AI constructs on the wire, and content-addressed identity.
 
 ---
 
-*Published from [blygger/blygger-spec@c07ca72](https://github.com/blygger/blygger-spec/commit/c07ca72).*
+*Published from [blygger/blygger-spec@4b9da5f](https://github.com/blygger/blygger-spec/commit/4b9da5f).*

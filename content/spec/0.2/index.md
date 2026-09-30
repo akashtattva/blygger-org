@@ -31,6 +31,7 @@ snapshots intact.
 - **This version:** `https://blygger.org/spec/0.2/`
 - **Latest version:** `https://blygger.org/spec/0.2/`
 - **Previous version:** `https://blygger.org/spec/0.2/2026-09-16/`
+- **Living text:** [`blygger/blygger-spec`](https://github.com/blygger/blygger-spec/blob/main/docs/protocol-v0.2.md) — the editable document on `main`. Revisions land there first, so it may be ahead of this page.
 - **Supersedes:** `https://blygger.org/spec/0.1/`
 - **XML namespace:** `https://blygger.org/ns/0.1`
 - **Source of truth:** [`blygger/blygger-spec`](https://github.com/blygger/blygger-spec) — `docs/protocol-v0.2.md`
@@ -976,4 +977,4 @@ significance primitive), and content-addressed identity.
 
 ---
 
-*Published from [blygger/blygger-spec@c07ca72](https://github.com/blygger/blygger-spec/commit/c07ca72).*
+*Published from [blygger/blygger-spec@4b9da5f](https://github.com/blygger/blygger-spec/commit/4b9da5f).*

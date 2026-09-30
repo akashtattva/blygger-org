@@ -24,6 +24,33 @@ from build_talk import build_talks
 ROOT = Path(__file__).parent
 DIST = ROOT / "dist"
 TEMPLATE = (ROOT / "templates" / "page.html").read_text("utf-8")
+
+
+def latest_spec_version() -> str | None:
+    """The newest spec version that is actually published under `content/spec/`.
+
+    Derived from the directory rather than kept as a literal, because the nav's
+    spec link *was* a literal: it said `/spec/0.2/` for as long as 0.3 had been
+    published, so the front door of the site pointed at a superseded document
+    (reported by Venkat). A hand-kept pointer to a thing that changes is a
+    pointer that goes stale — the same failure as the ecosystem census's
+    hand-kept version, one repo over.
+
+    Reading the directory rather than importing sync_spec's registry keeps the
+    link honest by construction: it can only ever name a version this build is
+    actually going to emit a page for.
+    """
+    spec_dir = ROOT / "content" / "spec"
+    versions = []
+    for child in spec_dir.iterdir() if spec_dir.is_dir() else []:
+        if child.is_dir() and re.fullmatch(r"\d+(?:\.\d+)*", child.name):
+            versions.append(child.name)
+    if not versions:
+        return None
+    return max(versions, key=lambda v: tuple(int(p) for p in v.split(".")))
+
+
+SPEC_LINK = f"/spec/{latest_spec_version()}/" if latest_spec_version() else "/spec/"
 EXTENSIONS = ["extra", "toc", "sane_lists"]
 
 FENCE_RE = re.compile(r"^(\s*)(```+)(.*)$")
@@ -100,6 +127,7 @@ def build_page(md_path: Path, out_path: Path, title: str, description: str,
     content_html, tokens = render_markdown(md_path)
     page = (
         TEMPLATE
+        .replace("{{SPEC_LINK}}", SPEC_LINK)
         .replace("{{TITLE}}", title)
         .replace("{{DESCRIPTION}}", description)
         .replace("{{PROMPT}}", prompt)
