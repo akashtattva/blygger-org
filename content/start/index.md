@@ -107,6 +107,47 @@ If you build one, **[tell us](https://github.com/blygger/blygger-org/issues/new/
 and it gets listed. Nobody has forked our repos — people read the spec and write
 their own — which means we cannot see your work unless you say so.
 
+### Advisory: do not ship a generic default title
+
+**This is our mistake, offered so you can skip it.** Blygger Studio shipped
+`"blyg"` as the default value of a blyg's title. It is the obvious placeholder,
+it reads fine in a settings form, and it is wrong — because a default that every
+deployment shares is a name that every deployment shares.
+
+By 2026-09-29 two unrelated live blygs were publishing `"title": "blyg"` in
+their manifests, neither operator having done anything but skip a form field.
+The directory at blygger.com listed both under that name, and briefly held a
+third submission as a suspected impersonation — a stranger queued for review
+because of *our* default. `title` is the one identity field the protocol gives a
+blyg (§5.2), so a client that fills it with a constant has quietly decided that
+its users are indistinguishable.
+
+**What to do instead**, in rough order of preference:
+
+1. **Derive it from the deployment's own address.** It is already unique,
+   because domains are. `blyg.example.com` becomes `example.com`; dropping a
+   leading `blyg.` or `www.` is worth doing, since neither says whose it is.
+   This is what Blygger Studio does as of 0.8.3.
+2. **Ask at install time**, if your client has an install step. One prompt,
+   answered once.
+3. **Emit no `title` at all** rather than a shared one. Readers must already
+   cope with its absence, and a missing field is honest where a wrong one is
+   not.
+
+**What not to do:** invent a human-sounding name. "Example's Blyg" is the client
+asserting something its operator never said, and §5.3's rule against readers
+extracting titles they were not given is the same instinct pointed the other
+way.
+
+The general form, which applies past titles: **a default that is identical
+across installations is a default that destroys information.** Anywhere your
+client fills in a field the operator did not, ask whether the deployment already
+knows a truer answer — its own hostname usually is one.
+
+*Name collisions themselves are fine.* Two people may both call their blyg
+"Joe's blyg" and the domain tells them apart; blygger.com lists both without
+comment. The problem is never that two names match — it is a name nobody chose.
+
 ### Which text to build against
 
 This is the question most likely to waste your afternoon, so it gets its own

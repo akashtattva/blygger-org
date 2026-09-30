@@ -1,5 +1,5 @@
 {
- "checked": "2026-09-29T15:23:53+00:00",
+ "checked": "2026-09-30T02:04:35+00:00",
  "census": {
   "goddinpotty-blyg/0.1": {
    "generator": "goddinpotty-blyg/0.1",
@@ -8,7 +8,7 @@
      "origin": "https://ammdi.hyperphor.com/blyg/",
      "title": "AMMDI Blyg",
      "protocol": "0.2",
-     "updated": "2026-09-28T20:03:35Z",
+     "updated": "2026-09-29T18:39:30Z",
      "generator_seen": "goddinpotty-blyg/0.1"
     }
    ],
@@ -23,30 +23,8 @@
      "origin": "https://blyg.aneeshsathe.com/",
      "title": "And Yet Here We Are",
      "protocol": "0.3",
-     "updated": "2026-09-29T07:03:52Z",
+     "updated": "2026-09-29T22:07:53Z",
      "generator_seen": "blygger-studio/0.7.0"
-    },
-    {
-     "origin": "https://jd-blyg.exe.xyz/",
-     "title": "[jdbb] studio blyg",
-     "protocol": "0.3",
-     "updated": "2026-09-28T01:04:21Z",
-     "generator_seen": "blygger-studio/0.7.0"
-    }
-   ],
-   "protocols": [
-    "0.3"
-   ]
-  },
-  "blyg-ref/0.3.0": {
-   "generator": "blyg-ref/0.3.0",
-   "nodes": [
-    {
-     "origin": "https://blyg.bricolage.io/",
-     "title": "Kyle's blyg",
-     "protocol": "0.3",
-     "updated": "2026-09-29T15:01:26Z",
-     "generator_seen": "blyg-ref/0.3.0"
     }
    ],
    "protocols": [
@@ -57,18 +35,33 @@
    "generator": "blygger-studio/0.8.0",
    "nodes": [
     {
+     "origin": "https://blyg.bricolage.io/",
+     "title": "Kyle's blyg",
+     "protocol": "0.3",
+     "updated": "2026-09-29T22:46:25Z",
+     "generator_seen": "blygger-studio/0.8.0"
+    }
+   ],
+   "protocols": [
+    "0.3"
+   ]
+  },
+  "blygger-studio/0.8.2": {
+   "generator": "blygger-studio/0.8.2",
+   "nodes": [
+    {
      "origin": "https://blyg.protocol-institute.org/",
      "title": "Protocol Institute Blyg",
      "protocol": "0.3",
-     "updated": "2026-09-29T01:30:05Z",
-     "generator_seen": "blygger-studio/0.8.0"
+     "updated": "2026-09-29T20:56:24Z",
+     "generator_seen": "blygger-studio/0.8.2"
     },
     {
      "origin": "https://venkateshrao.com/blyg/",
      "title": "Venkatesh Rao's Blyg",
      "protocol": "0.3",
-     "updated": "2026-09-29T14:37:25Z",
-     "generator_seen": "blygger-studio/0.8.0"
+     "updated": "2026-09-29T22:58:44Z",
+     "generator_seen": "blygger-studio/0.8.2"
     }
    ],
    "protocols": [
@@ -82,7 +75,7 @@
      "origin": "https://blyg.sachinbenny.xyz/",
      "title": "Summer Lightning",
      "protocol": "0.3",
-     "updated": "2026-09-29T04:19:46Z",
+     "updated": "2026-09-29T22:18:11Z",
      "generator_seen": "sachin-blyg/0.2.0"
     }
    ],
@@ -90,15 +83,15 @@
     "0.3"
    ]
   },
-  "Blynger/0.8.3": {
-   "generator": "Blynger/0.8.3",
+  "Blynger/0.8.6": {
+   "generator": "Blynger/0.8.6",
    "nodes": [
     {
      "origin": "https://bradydale.com/blyg/",
      "title": "Brady Dale's blyg",
      "protocol": "0.3",
-     "updated": "2026-09-28T21:56:47Z",
-     "generator_seen": "Blynger/0.8.3"
+     "updated": "2026-09-29T21:13:28Z",
+     "generator_seen": "Blynger/0.8.6"
     }
    ],
    "protocols": [
@@ -112,8 +105,23 @@
      "origin": "https://caseyjr.org/blyg/",
      "title": "Mike Casey",
      "protocol": "0.3",
-     "updated": "2026-09-29T00:02:32Z",
+     "updated": "2026-09-29T21:03:22Z",
      "generator_seen": "caseyjr-blyg/0.1.0"
+    }
+   ],
+   "protocols": [
+    "0.3"
+   ]
+  },
+  "blygger-studio/0.8.1": {
+   "generator": "blygger-studio/0.8.1",
+   "nodes": [
+    {
+     "origin": "https://jd-blyg.exe.xyz/",
+     "title": "[jdbb] studio blyg",
+     "protocol": "0.3",
+     "updated": "2026-09-28T01:04:21Z",
+     "generator_seen": "blygger-studio/0.8.1"
     }
    ],
    "protocols": [
@@ -158,8 +166,8 @@
    "language": "TypeScript",
    "license": "NOASSERTION",
    "stars": 0,
-   "forks": 1,
-   "pushed_at": "2026-09-29T15:22:13Z",
+   "forks": 2,
+   "pushed_at": "2026-09-30T02:04:17Z",
    "created_at": "2026-09-28T17:02:41Z",
    "archived": false,
    "homepage": "https://blygger.org",
@@ -258,6 +266,10 @@
  "discovered": [
   {
    "repo": "chrisbodhi/newschematic",
+   "via": "code: blyg.json"
+  },
+  {
+   "repo": "djinna/jdbbs",
    "via": "code: blyg.json"
   },
   {
