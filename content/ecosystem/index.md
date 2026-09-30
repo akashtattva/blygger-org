@@ -9,8 +9,8 @@ Built something? **[Submit it](https://github.com/blygger/blygger-org/issues/new
 
 ## Where things stand
 
-- **10 client implementations** publishing **11 live blygs** — 6 of those clients are not ours.
-- Protocol versions in the wild: **0.3** (8 nodes), **0.2** (3 nodes).
+- **11 client implementations** publishing **12 live blygs** — 7 of those clients are not ours.
+- Protocol versions in the wild: **0.3** (8 nodes), **0.2** (4 nodes).
 - **11 projects listed** below.
 
 The client counts come from reading every manifest in [blygger.com's directory](https://blygger.com), which is how a client becomes visible at all: `generator` is a public key in a file the protocol requires, so publishing announces you whether or not your source is anywhere we can see. Five of the clients below have no locatable repository.
@@ -25,9 +25,9 @@ Publish a blyg of their own, and so carry their own `generator` string. A client
 
 The reference client. A Cloudflare Worker that publishes a blyg, subscribes to others, and threads, transcludes and responds across them. Named blyg-ref until 2026-09-28.
 
-`blygger-studio/0.8.2` · TypeScript · updated today
+`blygger-studio/0.8.3` · TypeScript · updated today
 
-**3 of 5 live nodes run an older build** `blygger-studio/0.7.0`, `blygger-studio/0.8.0`, `blygger-studio/0.8.1` rather than `blygger-studio/0.8.2`.
+**3 of 5 live nodes run an older build** `blygger-studio/0.7.0`, `blygger-studio/0.8.0`, `blygger-studio/0.8.1` rather than `blygger-studio/0.8.3`.
 
 Live: [And Yet Here We Are](https://blyg.aneeshsathe.com/) (protocol 0.3), [Kyle's blyg](https://blyg.bricolage.io/) (protocol 0.3), [Protocol Institute Blyg](https://blyg.protocol-institute.org/) (protocol 0.3), [\[jdbb\] studio blyg](https://jd-blyg.exe.xyz/) (protocol 0.3), and 1 more
 
@@ -124,6 +124,7 @@ Rust · updated yesterday
 These `generator` strings appear on live blygs and are not matched to any project above. If one is yours, [say so](https://github.com/blygger/blygger-org/issues/new/choose) and it gets a proper entry.
 
 - `Blynger/0.8.6` — [bradydale.com/blyg](https://bradydale.com/blyg/)
+- `hugo-blyg/0.2.0` — [newschematic.org/blyg](https://newschematic.org/blyg/)
 - `sachin-blyg/0.2.0` — [blyg.sachinbenny.xyz](https://blyg.sachinbenny.xyz/)
 
 <!-- Discovered on GitHub and NOT in ecosystem/projects.toml. Triage these,

@@ -59,6 +59,34 @@
   pass.
 
 ## Done
+- **2026-09-29** — Session 29 refinements. **The nav's spec link said `/spec/0.2/`**
+  — a hardcoded literal pointing at a superseded document for as long as 0.3 had
+  existed, on the front door of the site. `build.py` derives it from what is actually
+  published under `content/spec/` now, so it can only ever name a version this build
+  emits a page for. The latest spec page also gained a **Living text** bullet linking
+  the canonical markdown on `main`, which says outright that revisions land there
+  first and it may be ahead of the page you are reading — latest pages only, since a
+  dated snapshot pointing at a moving file would undercut the one promise it makes.
+
+  **The ecosystem card contradicted itself:** session 28 made the version *alert*
+  derive its "current" value and left the card's facts line on the `projects.toml`
+  literal, so the page printed `blygger-studio/0.7.0 · updated today` directly above
+  "…rather than `blygger-studio/0.8.0`". Same source as the alert now.
+
+  **And `deploy.sh` re-runs the census**, which is the structural half. That page is
+  generated *and committed*, so fixing its generator does not fix the page — it had
+  gone stale twice in one day, once four releases behind while publicly advising five
+  live nodes to install 0.4.0. Never fatal: it reaches third-party nodes, and someone
+  else's server being down must not block publishing the spec.
+
+  **`/start/` carries a new advisory to client authors** — do not ship a generic
+  default title. Ours was `"blyg"`, two unrelated live nodes published under it, and
+  blygger.com briefly held a third submission as suspected impersonation because of
+  it. The general form is the keeper: a default identical across installations
+  destroys information, and the deployment usually already knows a truer answer. With
+  the corollary that name collisions themselves are fine — the problem is never that
+  two names match, it is a name nobody chose.
+
 - **2026-09-22** — Session 24: talk deck **round 2, a currency pass**. The deck was
   drafted at session 21, when v0.3 was still "next"; Phase A went live on both nodes
   2026-09-20, so the deck's biggest claim had gone stale in the author's favour. Two

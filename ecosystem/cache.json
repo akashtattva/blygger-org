@@ -1,5 +1,5 @@
 {
- "checked": "2026-09-30T02:04:35+00:00",
+ "checked": "2026-09-30T02:20:49+00:00",
  "census": {
   "goddinpotty-blyg/0.1": {
    "generator": "goddinpotty-blyg/0.1",
@@ -38,7 +38,7 @@
      "origin": "https://blyg.bricolage.io/",
      "title": "Kyle's blyg",
      "protocol": "0.3",
-     "updated": "2026-09-29T22:46:25Z",
+     "updated": "2026-09-30T02:19:26Z",
      "generator_seen": "blygger-studio/0.8.0"
     }
    ],
@@ -46,22 +46,22 @@
     "0.3"
    ]
   },
-  "blygger-studio/0.8.2": {
-   "generator": "blygger-studio/0.8.2",
+  "blygger-studio/0.8.3": {
+   "generator": "blygger-studio/0.8.3",
    "nodes": [
     {
      "origin": "https://blyg.protocol-institute.org/",
      "title": "Protocol Institute Blyg",
      "protocol": "0.3",
      "updated": "2026-09-29T20:56:24Z",
-     "generator_seen": "blygger-studio/0.8.2"
+     "generator_seen": "blygger-studio/0.8.3"
     },
     {
      "origin": "https://venkateshrao.com/blyg/",
      "title": "Venkatesh Rao's Blyg",
      "protocol": "0.3",
      "updated": "2026-09-29T22:58:44Z",
-     "generator_seen": "blygger-studio/0.8.2"
+     "generator_seen": "blygger-studio/0.8.3"
     }
    ],
    "protocols": [
@@ -143,6 +143,21 @@
     "0.2"
    ]
   },
+  "hugo-blyg/0.2.0": {
+   "generator": "hugo-blyg/0.2.0",
+   "nodes": [
+    {
+     "origin": "https://newschematic.org/blyg/",
+     "title": "New Schematic",
+     "protocol": "0.2",
+     "updated": "2026-09-29T19:59:06Z",
+     "generator_seen": "hugo-blyg/0.2.0"
+    }
+   ],
+   "protocols": [
+    "0.2"
+   ]
+  },
   "thinking.drwip.com": {
    "generator": "thinking.drwip.com",
    "nodes": [
@@ -167,7 +182,7 @@
    "license": "NOASSERTION",
    "stars": 0,
    "forks": 2,
-   "pushed_at": "2026-09-30T02:04:17Z",
+   "pushed_at": "2026-09-30T02:20:25Z",
    "created_at": "2026-09-28T17:02:41Z",
    "archived": false,
    "homepage": "https://blygger.org",
