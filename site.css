@@ -348,10 +348,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rss); outline-o
   padding: 0.5rem 1rem;
   border-radius: 999px;
   border: 1px solid var(--rule);
-  background: color-mix(in srgb, var(--paper) 78%, transparent);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  backdrop-filter: blur(14px) saturate(1.2);
-  box-shadow: 0 8px 28px color-mix(in srgb, var(--ink) 18%, transparent);
+  /* Solid paper — translucent fill + backdrop-filter washed the
+     page white when the drawer opened (whole-viewport flash). */
+  background: var(--paper);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 0.18);
   color: var(--ink);
   font-family: var(--mono);
   font-size: 0.8125rem;
@@ -372,23 +372,25 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rss); outline-o
   flex-shrink: 0;
 }
 
+/* Dark dim only — animate opacity, not a color-mix that can flash. */
 .jump-links-scrim {
   position: fixed;
   inset: 0;
   z-index: 61;
-  background-color: color-mix(in srgb, var(--ink) 0%, transparent);
+  background-color: rgb(0 0 0 / 0.4);
+  opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition:
-    background-color 300ms ease,
+    opacity 300ms ease,
     visibility 0s 0.3s;
 }
 
 .jump-links-scrim.is-open {
-  background-color: color-mix(in srgb, var(--ink) 35%, transparent);
+  opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition: background-color 300ms ease;
+  transition: opacity 300ms ease;
 }
 
 .jump-links-drawer {
@@ -402,10 +404,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rss); outline-o
   overflow: hidden;
   border-radius: 12px 12px 0 0;
   border-top: 1px solid var(--rule);
-  background: color-mix(in srgb, var(--paper) 82%, transparent);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  backdrop-filter: blur(14px) saturate(1.2);
-  box-shadow: 0 -8px 40px color-mix(in srgb, var(--ink) 22%, transparent);
+  background: var(--paper);
+  box-shadow: 0 -8px 40px rgb(0 0 0 / 0.22);
   transform: translateY(100%);
   visibility: hidden;
   transition:
