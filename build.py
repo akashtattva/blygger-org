@@ -277,8 +277,16 @@ if __name__ == "__main__":
     # Talks (session 21) are a third genre alongside normative text and technical
     # notes: slides + full narration, built from talks/<slug>/ rather than from
     # content/, because the source is structured (slides.yaml) not prose.
-    build_talks(DIST, TEMPLATE, lambda md: markdown.markdown(md, extensions=EXTENSIONS))
+    # Pre-fill SPEC_LINK so talk pages (which do not run build_page) still get
+    # a real /spec/{version}/ href instead of the literal {{SPEC_LINK}} token.
+    build_talks(
+        DIST,
+        TEMPLATE.replace("{{SPEC_LINK}}", SPEC_LINK),
+        lambda md: markdown.markdown(md, extensions=EXTENSIONS),
+    )
 
     shutil.copyfile(ROOT / "site.css", DIST / "site.css")
     print("  site.css  ->  dist/site.css")
+    shutil.copyfile(ROOT / "jump-links.js", DIST / "jump-links.js")
+    print("  jump-links.js  ->  dist/jump-links.js")
     print("Done.")

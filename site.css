@@ -44,7 +44,10 @@
 
 * { box-sizing: border-box; }
 
-html { color-scheme: light dark; }
+html {
+  color-scheme: light dark;
+  overflow-x: clip;
+}
 
 body {
   margin: 0;
@@ -54,6 +57,8 @@ body {
   font-size: 1.08rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 a { color: var(--rss); text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
@@ -64,8 +69,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rss); outline-o
 
 .site-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 0.75rem 1.5rem;
   max-width: 64rem;
   margin: 0 auto;
   padding: 1.5rem 1.5rem 1rem;
@@ -81,6 +88,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rss); outline-o
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
+  flex-shrink: 0;
 }
 .wordmark:hover { color: var(--ink); }
 .wordmark .dot {
@@ -91,9 +99,32 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rss); outline-o
   display: inline-block;
 }
 
-.site-header nav { display: flex; gap: 1.5rem; font-size: 0.9rem; }
-.site-header nav a { color: var(--ink-soft); text-decoration: none; }
-.site-header nav a:hover { color: var(--rss); }
+/* Nav wraps onto a second line on narrow viewports so the header
+   never forces horizontal page scroll. */
+.site-header nav,
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 1.15rem;
+  font-size: 0.9rem;
+  max-width: 100%;
+}
+.site-header nav a,
+.site-nav a { color: var(--ink-soft); text-decoration: none; }
+.site-header nav a:hover,
+.site-nav a:hover { color: var(--rss); }
+
+@media (max-width: 860px) {
+  .site-header nav,
+  .site-nav {
+    flex: 1 1 100%;
+    /* Roughly two rows of links on phones; gap stays readable. */
+    row-gap: 0.5rem;
+    column-gap: 1rem;
+    font-size: 0.85rem;
+  }
+}
 
 /* ---- layout ---- */
 
@@ -295,3 +326,203 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rss); outline-o
 }
 .site-footer a { color: var(--ink-soft); }
 .site-footer a:hover { color: var(--rss); }
+
+/* ---- jump links (tablet / mobile Contents drawer) ----
+   Sticky .rail stays desktop-only (hidden below 860px above).
+   This drawer fills that gap: fixed Contents pill + bottom sheet.
+   Hidden when the list has no items, and on desktop. */
+
+.jump-links:not(:has(li)) {
+  display: none;
+}
+
+.jump-links-trigger {
+  position: fixed;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: none;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--ink) 18%, transparent);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.jump-links-trigger:active {
+  transform: translateX(-50%) scale(0.97);
+}
+
+.jump-links-chevron {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+}
+
+.jump-links-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 61;
+  background-color: color-mix(in srgb, var(--ink) 0%, transparent);
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    background-color 300ms ease,
+    visibility 0s 0.3s;
+}
+
+.jump-links-scrim.is-open {
+  background-color: color-mix(in srgb, var(--ink) 35%, transparent);
+  visibility: visible;
+  pointer-events: auto;
+  transition: background-color 300ms ease;
+}
+
+.jump-links-drawer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 62;
+  height: fit-content;
+  max-height: 50dvh;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+  border-top: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 -8px 40px color-mix(in srgb, var(--ink) 22%, transparent);
+  transform: translateY(100%);
+  visibility: hidden;
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s 0.4s;
+  font-family: var(--mono);
+}
+
+.jump-links-drawer.is-open {
+  transform: translateY(0);
+  visibility: visible;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.jump-links-body {
+  max-height: 50dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.jump-links-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.jump-links-title {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.jump-links-close {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0.25rem 0;
+  font-family: inherit;
+  font-size: 0.85rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.jump-links-close:hover,
+.jump-links-close:active {
+  color: var(--rss);
+}
+
+.jump-links-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0.75rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.jump-links-list li {
+  display: flex;
+  gap: 0.6em;
+  align-items: baseline;
+}
+
+.jump-links-list .idx {
+  color: var(--rss);
+  flex-shrink: 0;
+  font-size: 0.78rem;
+}
+
+.jump-links-list a {
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1.35;
+  padding: 0.55rem 0.35rem;
+  border-radius: 0.4rem;
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.jump-links-list a:hover,
+.jump-links-list a:active {
+  color: var(--rss);
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+@media (max-width: 860px) {
+  .jump-links-trigger {
+    display: flex;
+  }
+}
+
+/* Desktop: sticky rail owns Contents; hide the drawer entirely. */
+@media (min-width: 861px) {
+  .jump-links {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jump-links-trigger,
+  .jump-links-scrim,
+  .jump-links-drawer {
+    transition: none;
+  }
+}

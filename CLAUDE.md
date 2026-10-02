@@ -101,11 +101,15 @@ ecosystem directory of community-built clients, tools, integrations and mods.
   protocol overview, canonical here); `spec/` (session 11, 2026-08-09 —
   **entirely generated**, see below). Publish mapping + source-of-truth rule:
   `content/README.md`.
-- `templates/page.html`, `site.css` — shared page shell + stylesheet. Signature
-  design element: a monospace "log rail" in the left margin turning each page's
-  headings into a numbered index (real section numbers on the spec page,
-  positional on the overview page) — echoes the protocol's own
-  "your feed is the changelog" idea.
+- `templates/page.html`, `site.css`, `jump-links.js` — shared page shell +
+  stylesheet + Contents drawer script. Signature design element: a monospace
+  "log rail" in the left margin turning each page's headings into a numbered
+  index (real section numbers on the spec page, positional on the overview
+  page) — echoes the protocol's own "your feed is the changelog" idea. The
+  sticky rail is desktop-only (hidden below 860px); below that breakpoint a
+  fixed Contents pill opens a bottom jump-links drawer with the same items.
+  The top header nav wraps onto a second line on small screens so the page
+  does not scroll sideways.
 - `sync_spec.py` (session 11) — the only writer of `content/spec/`. Publishes
   the canonical spec from the sibling `../blygger-spec/docs/protocol-v0.1.md`
   checkout; also (re)generates `content/spec/index.md`, the version/snapshot

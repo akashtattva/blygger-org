@@ -11,7 +11,7 @@
 <body>
 <header class="site-header">
   <a class="wordmark" href="/"><span class="dot"></span>blygger</a>
-  <nav>
+  <nav class="site-nav" aria-label="Site">
     <a href="/start/">start</a>
     <a href="{{SPEC_LINK}}">spec</a>
     <a href="/notes/">notes</a>
@@ -35,11 +35,66 @@
   </main>
 </div>
 
+<!-- Contents drawer for tablet/mobile. Same items as the sticky rail;
+     CSS shows this below 860px and keeps the rail for desktop. -->
+<div class="jump-links">
+  <button
+    type="button"
+    class="jump-links-trigger"
+    data-jump-links-open
+    aria-expanded="false"
+    aria-controls="jump-links-drawer"
+  >
+    <span>Contents</span>
+    <svg
+      class="jump-links-chevron"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m3 10 5-5 5 5" />
+    </svg>
+  </button>
+  <div
+    class="jump-links-scrim"
+    data-jump-links-scrim
+    aria-hidden="true"
+  ></div>
+  <nav
+    id="jump-links-drawer"
+    class="jump-links-drawer"
+    data-jump-links
+    aria-label="{{RAIL_LABEL}}"
+    inert
+  >
+    <div class="jump-links-body">
+      <div class="jump-links-header" data-jump-links-grip>
+        <p class="jump-links-title">{{RAIL_LABEL}}</p>
+        <button
+          type="button"
+          class="jump-links-close"
+          data-jump-links-close
+        >
+          Close
+        </button>
+      </div>
+      <ol class="jump-links-list">
+{{RAIL_ITEMS}}
+      </ol>
+    </div>
+  </nav>
+</div>
+
 <footer class="site-footer">
   MIT (code) &middot; CC-BY-4.0 (docs) &middot;
   <a href="https://github.com/blygger/blygger-spec">blygger-spec</a> &middot;
   this domain is the protocol's namespace host &mdash;
   <a href="https://blygger.com">blygger.com</a> is its commercial-adjacent sibling.
 </footer>
+<script src="/jump-links.js" defer></script>
 </body>
 </html>
